@@ -1,136 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import './formStyles.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { registerStudent, resetStudentStatus } from '../redux/slices/studentSlice';
 
 const RegisterStudent = () => {
-  const [student, setStudent] = useState({
-    name: '',
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading, error, success } = useSelector((state) => state.student);
+
+  const [formData, setFormData] = useState({
+    fullName: '',
     email: '',
     password: '',
-    phone: '',
-    dob: '',
-    branch: '',
-    year: '',
-    skills: '',
+    contact: '',
+    gender: '',
   });
 
+  useEffect(() => {
+    if (success) {
+      alert('Student registered successfully!');
+      navigate('/login');
+      dispatch(resetStudentStatus());
+    }
+  }, [success, dispatch, navigate]);
+
   const handleChange = (e) => {
-    setStudent({ ...student, [e.target.name]: e.target.value });
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Student Registered:\n${JSON.stringify(student, null, 2)}`);
+    dispatch(registerStudent(formData));
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: '600px' }}>
-      <h3 className="mb-4 text-center">Student Registration</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">Full Name</label>
-          <input 
-            type="text" 
-            className="form-control" 
-            id="name" 
-            name="name"
-            required
-            value={student.name}
-            onChange={handleChange}
-          />
-        </div>
-        
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email address</label>
-          <input 
-            type="email" 
-            className="form-control" 
-            id="email" 
-            name="email"
-            required
-            value={student.email}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">Password</label>
-          <input 
-            type="password" 
-            className="form-control" 
-            id="password" 
-            name="password"
-            required
-            value={student.password}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="phone" className="form-label">Phone Number</label>
-          <input 
-            type="tel" 
-            className="form-control" 
-            id="phone" 
-            name="phone"
-            value={student.phone}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="dob" className="form-label">Date of Birth</label>
-          <input 
-            type="date" 
-            className="form-control" 
-            id="dob" 
-            name="dob"
-            value={student.dob}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="branch" className="form-label">Branch</label>
-          <input 
-            type="text" 
-            className="form-control" 
-            id="branch" 
-            name="branch"
-            value={student.branch}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="year" className="form-label">Year</label>
-          <select 
-            className="form-select" 
-            id="year" 
-            name="year"
-            value={student.year}
-            onChange={handleChange}
-          >
-            <option value="">Select Year</option>
-            <option value="1st">1st Year</option>
-            <option value="2nd">2nd Year</option>
-            <option value="3rd">3rd Year</option>
-            <option value="4th">4th Year</option>
+    <div className="form-container vertical-layout modern-light-theme">
+      <div className="form-card styled-card">
+        <h2 className="form-title">Student Registration</h2>
+        <form className="form-content" onSubmit={handleSubmit}>
+          <input type="text" name="fullName" placeholder="Full Name" value={formData.fullName} onChange={handleChange} required />
+          <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+          <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+          <input type="text" name="contact" placeholder="Contact Number" value={formData.contact} onChange={handleChange} required />
+          <select name="gender" value={formData.gender} onChange={handleChange} required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
           </select>
-        </div>
+          {error && <div className="error-text">{error}</div>}
+          <button type="submit" className="submit-btn" disabled={loading}>{loading ? 'Registering...' : 'Register'}</button>
+        </form>
 
-        <div className="mb-3">
-          <label htmlFor="skills" className="form-label">Skills (comma separated)</label>
-          <input 
-            type="text" 
-            className="form-control" 
-            id="skills" 
-            name="skills"
-            value={student.skills}
-            onChange={handleChange}
-          />
+        <div className="footer-link">
+          Already have an account?{' '}
+          <span className="signup-link" onClick={() => navigate('/login')}>Login here</span>
         </div>
-
-        <button type="submit" className="btn btn-success w-100">Register Student</button>
-      </form>
+      </div>
     </div>
   );
 };

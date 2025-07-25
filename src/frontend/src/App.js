@@ -1,17 +1,15 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './pages/Login';
-import RegisterStudent from './pages/RegisterStudent';
+import { BrowserRouter } from 'react-router-dom';
+import AppRoutes from './routes/AppRoutes';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
-function App() {
-  return (
+const App = () => (
+  <Provider store={store}>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register-student" element={<RegisterStudent />} />
-      </Routes>
+      <AppRoutes />
     </BrowserRouter>
-  );
-}
+  </Provider>
+);
 
 export default App;

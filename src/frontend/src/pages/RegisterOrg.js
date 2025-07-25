@@ -1,106 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import './formStyles.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { registerOrg, resetOrgStatus } from '../redux/slices/orgSlice';
 
 const RegisterOrg = () => {
-  const [org, setOrg] = useState({
-    orgName: '',
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading, error, success } = useSelector((state) => state.org);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    regNumber: '',
     email: '',
     password: '',
-    phone: '',
-    address: '',
-    website: '',
+    contact: '',
   });
 
+  useEffect(() => {
+    if (success) {
+      alert('Organization registered successfully!');
+      navigate('/login');
+      dispatch(resetOrgStatus());
+    }
+  }, [success, dispatch, navigate]);
+
   const handleChange = (e) => {
-    setOrg({ ...org, [e.target.name]: e.target.value });
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Organization Registered:\n${JSON.stringify(org, null, 2)}`);
-    // Replace with API call later
+    dispatch(registerOrg(formData));
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: '600px' }}>
-      <h3 className="mb-4 text-center">Organization Registration</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="orgName" className="form-label">Organization Name</label>
-          <input 
-            type="text" 
-            className="form-control" 
-            id="orgName" 
-            name="orgName"
-            required
-            value={org.orgName}
-            onChange={handleChange}
-          />
-        </div>
-        
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email address</label>
-          <input 
-            type="email" 
-            className="form-control" 
-            id="email" 
-            name="email"
-            required
-            value={org.email}
-            onChange={handleChange}
-          />
-        </div>
+    <div className="form-container vertical-layout modern-light-theme">
+      <div className="form-card styled-card">
+        <h2 className="form-title">Organization Registration</h2>
+        <form className="form-content" onSubmit={handleSubmit}>
+          <input type="text" name="name" placeholder="Organization Name" value={formData.name} onChange={handleChange} required />
+          <input type="text" name="regNumber" placeholder="Registration Number" value={formData.regNumber} onChange={handleChange} required />
+          <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+          <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+          <input type="text" name="contact" placeholder="Contact Number" value={formData.contact} onChange={handleChange} required />
+          {error && <div className="error-text">{error}</div>}
+          <button type="submit" className="submit-btn" disabled={loading}>{loading ? 'Registering...' : 'Register'}</button>
+        </form>
 
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">Password</label>
-          <input 
-            type="password" 
-            className="form-control" 
-            id="password" 
-            name="password"
-            required
-            value={org.password}
-            onChange={handleChange}
-          />
+        <div className="footer-link">
+          Already have an account?{' '}
+          <span className="signup-link" onClick={() => navigate('/login')}>Login here</span>
         </div>
-
-        <div className="mb-3">
-          <label htmlFor="phone" className="form-label">Phone Number</label>
-          <input 
-            type="tel" 
-            className="form-control" 
-            id="phone" 
-            name="phone"
-            value={org.phone}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="address" className="form-label">Address</label>
-          <textarea 
-            className="form-control" 
-            id="address" 
-            name="address"
-            rows="3"
-            value={org.address}
-            onChange={handleChange}
-          ></textarea>
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="website" className="form-label">Website URL</label>
-          <input 
-            type="url" 
-            className="form-control" 
-            id="website" 
-            name="website"
-            value={org.website}
-            onChange={handleChange}
-          />
-        </div>
-
-        <button type="submit" className="btn btn-success w-100">Register Organization</button>
-      </form>
+      </div>
     </div>
   );
 };
