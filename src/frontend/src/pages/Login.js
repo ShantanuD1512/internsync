@@ -1,95 +1,88 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-
-const dummyUsers = {
-  student: { email: "student@example.com", password: "student123" },
-  organization: { email: "org@example.com", password: "org123" },
-  admin: { email: "admin@example.com", password: "admin123" },
-};
+import React, { useState } from 'react';
+import './formStyles.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [role, setRole] = useState("student");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setError('');
 
-    const user = dummyUsers[role];
+    const dummyUser = {
+      email: 'student@example.com',
+      password: 'student123',
+      token: 'mock-jwt-token-12345'
+    };
 
-    if (email === user.email && password === user.password) {
-      alert(`Login successful as ${role}!`);
-      if (role === "student") {
-        navigate("/register-student");
-      } else if (role === "organization") {
-        navigate("/register-org");
-      } else if (role === "admin") {
-        navigate("/admin-dashboard");
-      }
+    if (email === dummyUser.email && password === dummyUser.password) {
+      localStorage.setItem('token', dummyUser.token);
+      alert('Login successful!');
+      navigate('/student/dashboard');
     } else {
-      alert("Invalid credentials! Please try again.");
+      setError('Invalid email or password');
     }
+
+    // ✅ TODO: Replace this block below when backend is ready
+    /*
+    try {
+      const response = await fetch('http://localhost:8081/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        alert('Login successful!');
+        navigate('/student/dashboard');
+      } else {
+        setError(data.message || 'Login failed.');
+      }
+    } catch (err) {
+      setError('Login failed. Please try again later.');
+    }
+    */
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: "400px" }}>
-      <h3 className="mb-4">Login</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="role" className="form-label">
-            Select Role
-          </label>
-          <select
-            id="role"
-            className="form-select"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option value="student">Student</option>
-            <option value="organization">Organization</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email address
-          </label>
+    <div className="form-container horizontal-layout modern-light-theme">
+      <div className="login-left">
+        <h1 className="login-heading">Welcome to InternSync</h1>
+        <p className="login-tagline">Streamline your internship journey</p>
+      </div>
+
+      <div className="form-card styled-card login-right">
+        <h2 className="form-title">Login</h2>
+        <form onSubmit={handleLogin} className="form-content">
           <input
             type="email"
-            id="email"
-            className="form-control"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter email"
             required
           />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
           <input
             type="password"
-            id="password"
-            className="form-control"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
             required
           />
-        </div>
-        <button type="submit" className="btn btn-primary w-100">
-          Login
-        </button>
-      </form>
+          {error && <div className="error-text">{error}</div>}
+          <button type="submit" className="submit-btn">Login</button>
+        </form>
 
-      <div className="mt-3 text-center">
-        <p>
-          Don't have an account? Sign up as{" "}
-          <Link to="/register-student">Student</Link> or{" "}
-          <Link to="/register-org">Organization</Link>
-        </p>
+        <div className="footer-link">
+          <p style={{ marginBottom: '0.5rem' }}>Sign up as:&nbsp;
+            <span className="signup-link" onClick={() => navigate('/register-student')}>Student</span> |
+            <span className="signup-link" onClick={() => navigate('/register-org')}>Organization</span>
+          </p>
+        </div>
       </div>
     </div>
   );
