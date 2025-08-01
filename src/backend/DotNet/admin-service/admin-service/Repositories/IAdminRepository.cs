@@ -1,6 +1,11 @@
-﻿namespace admin_service.Repositories
+﻿using admin_service.DTOs;
+using InternSync.AdminService.DTOs;
+
+namespace InternSync.AdminService.Repositories
 {
-    public class IAdminRepository
+    public interface IAdminRepository
     {
+        Task<IEnumerable<OrganizationDto>> GetAllOrganizationsAsync();
+        Task<bool> ApproveOrganizationAsync(int orgId);
     }
 }
