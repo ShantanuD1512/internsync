@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\internsync\\src\\backend\\DotNet\\admin-service\\admin-service\\admin-service.csproj": {}
+    "C:\\Users\\dshan\\Desktop\\internsync\\src\\backend\\DotNet\\admin-service\\admin-service\\admin-service.csproj": {}
   },
   "projects": {
-    "D:\\internsync\\src\\backend\\DotNet\\admin-service\\admin-service\\admin-service.csproj": {
+    "C:\\Users\\dshan\\Desktop\\internsync\\src\\backend\\DotNet\\admin-service\\admin-service\\admin-service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\internsync\\src\\backend\\DotNet\\admin-service\\admin-service\\admin-service.csproj",
+        "projectUniqueName": "C:\\Users\\dshan\\Desktop\\internsync\\src\\backend\\DotNet\\admin-service\\admin-service\\admin-service.csproj",
         "projectName": "admin-service",
-        "projectPath": "D:\\internsync\\src\\backend\\DotNet\\admin-service\\admin-service\\admin-service.csproj",
-        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\internsync\\src\\backend\\DotNet\\admin-service\\admin-service\\obj\\",
+        "projectPath": "C:\\Users\\dshan\\Desktop\\internsync\\src\\backend\\DotNet\\admin-service\\admin-service\\admin-service.csproj",
+        "packagesPath": "C:\\Users\\dshan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dshan\\Desktop\\internsync\\src\\backend\\DotNet\\admin-service\\admin-service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dshan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
