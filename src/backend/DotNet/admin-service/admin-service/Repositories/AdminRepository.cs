@@ -1,6 +1,4 @@
-﻿using admin_service.Data;
-using admin_service.DTOs;
-using InternSync.AdminService.Data;
+﻿using InternSync.AdminService.Data;
 using InternSync.AdminService.DTOs;
 using InternSync.AdminService.Models;
 using Microsoft.EntityFrameworkCore;
