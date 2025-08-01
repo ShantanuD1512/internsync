@@ -1,5 +1,4 @@
-﻿using admin_service.DTOs;
-using InternSync.AdminService.DTOs;
+﻿using InternSync.AdminService.DTOs;
 
 namespace InternSync.AdminService.Repositories
 {
