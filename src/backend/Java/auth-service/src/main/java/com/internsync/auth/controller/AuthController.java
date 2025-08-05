@@ -1,55 +1,44 @@
 package com.internsync.auth.controller;
 
 import com.internsync.auth.dto.AuthRequest;
-import com.internsync.auth.dto.AuthResponse;
+import com.internsync.auth.dto.LoginResponse;
 import com.internsync.auth.dto.RegisterRequest;
 import com.internsync.auth.entity.User;
-import com.internsync.auth.repository.UserRepository;
-import com.internsync.auth.security.JwtUtil;
 import com.internsync.auth.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-
     @Autowired
     private AuthService authService;
 
-    @Autowired
-    private JwtUtil jwtUtil;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(authService.registerUser(request));
+        User user = authService.registerUser(request);
+        return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("/register-org")
+    public ResponseEntity<Integer> registerOrgUser(@RequestBody RegisterRequest request) {
+        try {
+            int userId = authService.registerOrgAndReturnUserId(request);
+            return ResponseEntity.ok(userId);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(0);
+        }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
-        );
-
-        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
-        String token = jwtUtil.generateToken(userDetails.getUsername());
-
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-        return ResponseEntity.ok(new AuthResponse(token, user.getEmail(), user.getRole().getRoleName()));
+    public ResponseEntity<LoginResponse> login(@RequestBody AuthRequest request) {
+        try {
+            LoginResponse response = authService.loginUser(request);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new LoginResponse("Invalid credentials", 0, null, null, 0, 0));
+        }
     }
 }
