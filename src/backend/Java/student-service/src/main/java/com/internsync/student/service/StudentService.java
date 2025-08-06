@@ -19,6 +19,7 @@ public class StudentService {
     private DocumentRepository documentRepo;
     @Autowired
     private ApplicationRepository applicationRepo;
+
     private RestTemplate restTemplate = new RestTemplate();
 
     public DashboardDto getStudentDashboard(Integer studentId) {
@@ -29,7 +30,7 @@ public class StudentService {
         List<Document> documents = documentRepo.findByStudent_StudentId(studentId);
         List<Application> applications = applicationRepo.findByStudent_StudentId(studentId);
 
-        String url = "http://localhost:8082/api/org/internship/all"; // Change for your org-service
+        String url = "http://localhost:8082/api/org/internship/all"; // Change this if org-service is moved
         InternshipDto[] internships = restTemplate.getForObject(url, InternshipDto[].class);
 
         DashboardDto dashboard = new DashboardDto();
@@ -48,5 +49,17 @@ public class StudentService {
 
     public Student saveStudent(Student student) {
         return studentRepo.save(student);
+    }
+
+    public Student updateStudent(Integer id, Student updatedStudent) {
+        Student existingStudent = studentRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        existingStudent.setStudentName(updatedStudent.getStudentName());
+        existingStudent.setGender(updatedStudent.getGender());
+        existingStudent.setUserId(updatedStudent.getUserId());
+        // Update any other fields if needed
+
+        return studentRepo.save(existingStudent);
     }
 }
