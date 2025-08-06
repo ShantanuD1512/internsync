@@ -1,10 +1,10 @@
 package com.internsync.student.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.internsync.student.dto.DashboardDto;
 import com.internsync.student.entity.Student;
 import com.internsync.student.service.StudentService;
 
@@ -29,5 +29,11 @@ public class StudentController {
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+    
+    @GetMapping("/allstudents")
+    public ResponseEntity<List<Student>> getAllStudents() {
+        List<Student> students = studentService.getAllStudents();
+        return ResponseEntity.ok(students);
     }
 }
