@@ -29,4 +29,26 @@ public class ApplicationController {
         List<Application> apps = applicationService.getApplicationsForStudent(studentId);
         return ResponseEntity.ok(apps);
     }
+    
+    @GetMapping("/internship/{internshipId}")
+    public ResponseEntity<List<Application>> getApplicationsForInternship(@PathVariable Integer internshipId) {
+        List<Application> apps = applicationService.getApplicationsForInternship(internshipId);
+        return ResponseEntity.ok(apps);
+    }
+
+    @GetMapping("/internships")
+    public ResponseEntity<List<Application>> getApplicationsByInternshipIds(
+            @RequestParam List<Integer> internshipIds,
+            @RequestParam(required = false) Integer statusFilter) {
+        
+        List<Application> apps;
+        if (statusFilter != null) {
+            apps = applicationService.getApplicationsForInternshipsAndStatus(internshipIds, statusFilter);
+        } else {
+            apps = applicationService.getApplicationsForInternships(internshipIds);
+        }
+        return ResponseEntity.ok(apps);
+    }
+
+    
 }

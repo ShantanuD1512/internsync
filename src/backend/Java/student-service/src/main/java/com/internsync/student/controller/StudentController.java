@@ -15,10 +15,11 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping("/{id}/dashboard")
-    public ResponseEntity<DashboardDto> getDashboard(@PathVariable Integer id) {
-        DashboardDto dashboard = studentService.getStudentDashboard(id);
-        return ResponseEntity.ok(dashboard);
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> getStudentById(@PathVariable Integer id) {
+        return studentService.getStudentById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")

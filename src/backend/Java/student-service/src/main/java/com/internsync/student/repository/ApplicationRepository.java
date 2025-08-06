@@ -7,6 +7,9 @@ import com.internsync.student.entity.Application;
 public interface ApplicationRepository extends JpaRepository<Application, Integer> {
 
     List<Application> findByStudent_StudentId(Integer studentId);
-
     boolean existsByStudent_StudentIdAndInternshipId(Integer studentId, Integer internshipId);
+    
+    List<Application> findByInternshipId(Integer internshipId);
+    List<Application> findByInternshipIdIn(List<Integer> internshipIds);
+    List<Application> findByInternshipIdInAndApplicationStatusId(List<Integer> internshipIds, Integer applicationStatusId);
 }
