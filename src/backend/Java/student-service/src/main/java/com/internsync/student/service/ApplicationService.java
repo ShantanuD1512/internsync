@@ -1,4 +1,5 @@
 package com.internsync.student.service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,10 @@ import com.internsync.student.repository.StudentRepository;
 
 @Service
 public class ApplicationService {
+
     @Autowired
     private ApplicationRepository applicationRepo;
+
     @Autowired
     private StudentRepository studentRepo;
 
@@ -19,10 +22,15 @@ public class ApplicationService {
         Student student = studentRepo.findById(studentId)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
 
+        boolean alreadyApplied = applicationRepo.existsByStudent_StudentIdAndInternshipId(studentId, internshipId);
+        if (alreadyApplied) {
+            throw new RuntimeException("You have already applied to this internship.");
+        }
+
         Application app = new Application();
         app.setStudent(student);
         app.setInternshipId(internshipId);
-        app.setApplicationStatusId(1);
+        app.setApplicationStatusId(1); 
         app.setAppliedOn(LocalDateTime.now());
 
         return applicationRepo.save(app);
