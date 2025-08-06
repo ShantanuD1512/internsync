@@ -62,4 +62,8 @@ public class StudentService {
 
         return studentRepo.save(existingStudent);
     }
+    
+    public List<Student> getAllStudents() {
+        return studentRepo.findAll();
+    }
 }
