@@ -39,4 +39,16 @@ public class ApplicationService {
     public List<Application> getApplicationsForStudent(Integer studentId) {
         return applicationRepo.findByStudent_StudentId(studentId);
     }
+    
+    public List<Application> getApplicationsForInternship(Integer internshipId) {
+        return applicationRepo.findByInternshipId(internshipId);
+    }
+
+    // New method for multiple internship IDs
+    public List<Application> getApplicationsForInternships(List<Integer> internshipIds) {
+        return applicationRepo.findByInternshipIdIn(internshipIds);
+    }
+    public List<Application> getApplicationsForInternshipsAndStatus(List<Integer> internshipIds, Integer statusId) {
+        return applicationRepo.findByInternshipIdInAndApplicationStatusId(internshipIds, statusId);
+    }
 }

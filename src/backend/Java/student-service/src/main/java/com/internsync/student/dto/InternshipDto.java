@@ -3,12 +3,19 @@ package com.internsync.student.dto;
 import java.util.Date;
 
 public class InternshipDto {
+    private int internshipId;
     private int organizationId;
     private int categoryId;
     private String title, description, location, duration, stipend, mode;
     private Date deadline;
 
-    public int getOrganizationId() { return organizationId; }
+    public int getInternshipId() {
+		return internshipId;
+	}
+	public void setInternshipId(int internshipId) {
+		this.internshipId = internshipId;
+	}
+	public int getOrganizationId() { return organizationId; }
     public void setOrganizationId(int organizationId) { this.organizationId = organizationId; }
     public int getCategoryId() { return categoryId; }
     public void setCategoryId(int categoryId) { this.categoryId = categoryId; }
