@@ -13,7 +13,7 @@ public class InternshipDto {
     private String stipend;
     private String mode;
     private Date deadline;
-
+    
 	public int getOrganizationId() {
 		return organizationId;
 	}

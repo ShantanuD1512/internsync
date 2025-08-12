@@ -10,6 +10,8 @@ import com.internsync.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.web.client.RestTemplate;
@@ -92,4 +94,41 @@ public class AuthService {
                 organizationId
         );
     }
+    
+ // In AuthService.java
+    public User registerUserStudent(RegisterRequest request) {
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setContact(request.getContact());
+        user.setPassword(request.getPassword());
+
+        Role role = roleRepository.findById(request.getRoleId())
+                .orElseThrow(() -> new RuntimeException("Role not found"));
+        user.setRole(role);
+
+        User savedUser = userRepository.save(user);
+
+        // Student integration: if role is student, call Student Service
+        if (role.getRoleId() == 2) {
+            // Construct student registration payload
+            Map<String, Object> studentData = new HashMap<>();
+            studentData.put("userId", savedUser.getUserId());
+            studentData.put("studentName", request.getName());
+            studentData.put("gender", request.getGender() == null ? "Other" : request.getGender());
+
+            RestTemplate restTemplate = new RestTemplate();
+            try {
+                ResponseEntity<?> resp = restTemplate.postForEntity(
+                    "http://localhost:8083/students/register", studentData, Object.class
+                );
+            } catch(Exception ex) {
+                // Optionally roll back User creation or handle error
+                throw new RuntimeException("Failed to register student profile: " + ex.getMessage());
+            }
+        }
+        return savedUser;
+    }
+
+    
 }
