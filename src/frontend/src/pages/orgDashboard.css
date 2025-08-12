@@ -1,0 +1,32 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.disabled-card {
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(111, 66, 193, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:focus {
+  outline: 3px solid #6f42c1;
+  outline-offset: 3px;
+}
+
+.card .btn {
+  width: 80px;
+  align-self: center;
+}
+
+.dashboard-card .card-body {
+  transition: all 0.25s ease-in-out;
+}
+
+.dashboard-card .card-body i {
+  user-select: none;
+}
