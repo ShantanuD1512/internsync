@@ -1,0 +1,150 @@
+/* Container & Layout */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+}
+
+/* Page Title */
+.page-title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #333;
+}
+
+/* Filters container */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+/* Individual filter group */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  flex: 1 1 200px;
+}
+
+.filter-group label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #555;
+}
+
+.filter-group select,
+.filter-group input {
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s ease;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff;
+}
+
+/* Info and Error text */
+.info {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #555;
+  margin-top: 1rem;
+}
+
+.error {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #d9534f;
+  margin-top: 1rem;
+}
+
+/* Application list styling */
+.application-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Each applicant card */
+.application-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
+  transition: background-color 0.2s ease;
+}
+
+.application-item:hover {
+  background-color: #e9f0ff;
+}
+
+/* Applicant info layout */
+.applicant-info p {
+  margin: 0.3rem 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Status badges */
+.status {
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.status-pending {
+  background-color: #f0ad4e; /* orange */
+}
+
+.status-accepted {
+  background-color: #5cb85c; /* green */
+}
+
+.status-rejected {
+  background-color: #d9534f; /* red */
+}
+
+.status-unknown {
+  background-color: #6c757d; /* gray */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+  }
+
+  .filter-group {
+    min-width: 100%;
+  }
+
+  .application-item {
+    padding: 0.8rem 1rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .applicant-info p {
+    font-size: 0.9rem;
+  }
+}
