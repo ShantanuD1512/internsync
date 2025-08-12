@@ -2,6 +2,8 @@ package com.internsync.student.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.internsync.student.entity.Application;
@@ -51,4 +53,8 @@ public class ApplicationService {
     public List<Application> getApplicationsForInternshipsAndStatus(List<Integer> internshipIds, Integer statusId) {
         return applicationRepo.findByInternshipIdInAndApplicationStatusId(internshipIds, statusId);
     }
+    public List<Map<String, Object>> getApplicationsWithInternshipTitle(List<Integer> internshipIds) {
+        return applicationRepo.getApplicationsWithInternshipTitle(internshipIds);
+    }
+
 }

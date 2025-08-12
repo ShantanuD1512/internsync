@@ -24,5 +24,15 @@
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InternSync.AdminService.Controllers.AdminController",
+    "Method": "GetAllStudents",
+    "RelativePath": "api/admin/students",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]

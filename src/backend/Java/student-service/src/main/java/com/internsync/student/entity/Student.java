@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="student_details")
 public class Student {
-    @Id @Column(name = "student_id")
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "student_id")
     private Integer studentId;
 
     @Column(name = "user_id")
@@ -26,3 +28,4 @@ public class Student {
     public String getGender() { return gender; }
     public void setGender(String gender) { this.gender = gender; }
 }
+	

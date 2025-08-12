@@ -22,6 +22,7 @@ public class Application {
 
     @Column(name = "applied_on")
     private LocalDateTime appliedOn;
+    
 
     public Integer getApplicationId() { return applicationId; }
     public void setApplicationId(Integer applicationId) { this.applicationId = applicationId; }

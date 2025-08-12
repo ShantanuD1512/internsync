@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.internsync.student.entity.Education;
+import com.internsync.student.entity.Student;
+import com.internsync.student.repository.EducationRepository;
+import com.internsync.student.repository.StudentRepository;
 import com.internsync.student.service.EducationService;
 
 @RestController
@@ -13,6 +16,12 @@ public class EducationController {
 
     @Autowired
     private EducationService educationService;
+    
+    @Autowired
+    private StudentRepository studentRepository;
+    
+    @Autowired
+    private EducationRepository educationRepository;
 
     // Retrieve all education records for a given student by ID
     @GetMapping("/student/{studentId}")
@@ -41,4 +50,14 @@ public class EducationController {
         educationService.deleteEducation(id);
         return ResponseEntity.noContent().build();
     }
+    
+    @PostMapping("/students/{studentId}/education")
+    public ResponseEntity<Education> addEducationForStudent(@PathVariable Integer studentId, @RequestBody Education education) {
+        Student student = studentRepository.findById(studentId)
+            .orElseThrow(() -> new RuntimeException("Student not found"));
+        education.setStudent(student);
+        Education saved = educationRepository.save(education);
+        return ResponseEntity.ok(saved);
+    }
+
 }

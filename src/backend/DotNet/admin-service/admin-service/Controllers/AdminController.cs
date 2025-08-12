@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using InternSync.AdminService.Services;
+using System.Threading.Tasks;
 
 namespace InternSync.AdminService.Controllers
 {
@@ -27,6 +28,14 @@ namespace InternSync.AdminService.Controllers
             var result = await _adminService.ApproveOrganizationAsync(id);
             if (!result) return NotFound("Organization not found");
             return Ok("Organization approved successfully");
+        }
+
+        // New endpoint for students
+        [HttpGet("students")]
+        public async Task<IActionResult> GetAllStudents()
+        {
+            var students = await _adminService.GetAllStudentsAsync();
+            return Ok(students);
         }
     }
 }

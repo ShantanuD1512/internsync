@@ -1,6 +1,8 @@
 package com.internsync.student.controller;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +51,15 @@ public class ApplicationController {
         }
         return ResponseEntity.ok(apps);
     }
+    
+    @GetMapping("/internships/with-title")
+    public ResponseEntity<List<Map<String, Object>>> getApplicationsByInternshipIdsWithTitle(
+            @RequestParam List<Integer> internshipIds) {
+
+        List<Map<String, Object>> apps = applicationService.getApplicationsWithInternshipTitle(internshipIds);
+        return ResponseEntity.ok(apps);
+    }
+
 
     
 }
