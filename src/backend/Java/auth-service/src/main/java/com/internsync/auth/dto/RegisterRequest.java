@@ -6,6 +6,12 @@ public class RegisterRequest {
     private String password;
     private String contact;
     private int roleId;
+    
+    // In RegisterRequest.java
+    private String gender;
+    public String getGender() { return gender; }
+    public void setGender(String gender) { this.gender = gender; }
+
 
     // Getters and setters
     public String getName() { return name; }

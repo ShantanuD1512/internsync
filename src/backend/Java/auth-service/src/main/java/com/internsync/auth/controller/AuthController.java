@@ -20,7 +20,13 @@ public class AuthController {
         User user = authService.registerUser(request);
         return ResponseEntity.ok(user);
     }
-
+    
+    @PostMapping("/register-student")
+    public ResponseEntity<User> registerStudent(@RequestBody RegisterRequest request) {
+        User user = authService.registerUserStudent(request);
+        return ResponseEntity.ok(user);
+    }
+    
     @PostMapping("/register-org")
     public ResponseEntity<Integer> registerOrgUser(@RequestBody RegisterRequest request) {
         try {

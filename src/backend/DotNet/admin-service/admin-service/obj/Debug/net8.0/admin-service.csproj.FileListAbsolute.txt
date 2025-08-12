@@ -222,3 +222,14 @@ E:\internsync\src\backend\DotNet\admin-service\admin-service\obj\Debug\net8.0\re
 E:\internsync\src\backend\DotNet\admin-service\admin-service\obj\Debug\net8.0\admin-service.pdb
 E:\internsync\src\backend\DotNet\admin-service\admin-service\obj\Debug\net8.0\admin-service.genruntimeconfig.cache
 E:\internsync\src\backend\DotNet\admin-service\admin-service\obj\Debug\net8.0\ref\admin-service.dll
+E:\internsync\src\backend\DotNet\admin-service\admin-service\bin\Debug\net8.0\Steeltoe.Common.dll
+E:\internsync\src\backend\DotNet\admin-service\admin-service\bin\Debug\net8.0\Steeltoe.Common.Abstractions.dll
+E:\internsync\src\backend\DotNet\admin-service\admin-service\bin\Debug\net8.0\Steeltoe.Common.Http.dll
+E:\internsync\src\backend\DotNet\admin-service\admin-service\bin\Debug\net8.0\Steeltoe.Connector.Abstractions.dll
+E:\internsync\src\backend\DotNet\admin-service\admin-service\bin\Debug\net8.0\Steeltoe.Connector.ConnectorBase.dll
+E:\internsync\src\backend\DotNet\admin-service\admin-service\bin\Debug\net8.0\Steeltoe.Discovery.Abstractions.dll
+E:\internsync\src\backend\DotNet\admin-service\admin-service\bin\Debug\net8.0\Steeltoe.Discovery.ClientBase.dll
+E:\internsync\src\backend\DotNet\admin-service\admin-service\bin\Debug\net8.0\Steeltoe.Discovery.ClientCore.dll
+E:\internsync\src\backend\DotNet\admin-service\admin-service\bin\Debug\net8.0\Steeltoe.Discovery.Eureka.dll
+E:\internsync\src\backend\DotNet\admin-service\admin-service\bin\Debug\net8.0\Steeltoe.Extensions.Configuration.Abstractions.dll
+E:\internsync\src\backend\DotNet\admin-service\admin-service\bin\Debug\net8.0\System.Reflection.MetadataLoadContext.dll

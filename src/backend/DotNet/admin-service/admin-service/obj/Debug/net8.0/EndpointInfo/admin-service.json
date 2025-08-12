@@ -39,6 +39,18 @@
           }
         }
       }
+    },
+    "/api/admin/students": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": { }

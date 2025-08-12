@@ -2,8 +2,12 @@ using InternSync.AdminService.Data;
 using InternSync.AdminService.Repositories;
 using InternSync.AdminService.Services;
 using Microsoft.EntityFrameworkCore;
+using Steeltoe.Discovery.Client;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add Steeltoe Discovery Client
+builder.Services.AddDiscoveryClient(builder.Configuration);
 
 //Add CORS for React
 builder.Services.AddCors(options =>
@@ -36,6 +40,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+// Use Steeltoe Discovery Client
+app.UseDiscoveryClient();
+//app.UseHttpsRedirection();
 
 //Use CORS middleware
 app.UseCors("AllowReactApp");

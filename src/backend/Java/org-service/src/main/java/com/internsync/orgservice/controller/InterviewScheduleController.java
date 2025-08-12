@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.internsync.orgservice.entity.InterviewSchedule;
 import com.internsync.orgservice.service.InterviewScheduleService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/org/interviews")
 public class InterviewScheduleController {
@@ -43,7 +43,7 @@ public class InterviewScheduleController {
         return ResponseEntity.ok(updated);
     }
 
-    @PatchMapping("/{id}/status")
+    @PutMapping("/{id}/status")
     public ResponseEntity<InterviewSchedule> updateStatus(@PathVariable Integer id, @RequestBody Map<String, Integer> statusMap) {
         Integer statusId = statusMap.get("interviewStatusId");
         InterviewSchedule updated = service.updateStatus(id, statusId);

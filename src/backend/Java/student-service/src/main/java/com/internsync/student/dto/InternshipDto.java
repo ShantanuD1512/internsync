@@ -8,6 +8,7 @@ public class InternshipDto {
     private int categoryId;
     private String title, description, location, duration, stipend, mode;
     private Date deadline;
+    private String orgName;
 
     public int getInternshipId() {
 		return internshipId;
@@ -15,6 +16,8 @@ public class InternshipDto {
 	public void setInternshipId(int internshipId) {
 		this.internshipId = internshipId;
 	}
+	public String getOrgName() { return orgName; }
+    public void setOrgName(String orgName) { this.orgName = orgName; }
 	public int getOrganizationId() { return organizationId; }
     public void setOrganizationId(int organizationId) { this.organizationId = organizationId; }
     public int getCategoryId() { return categoryId; }
